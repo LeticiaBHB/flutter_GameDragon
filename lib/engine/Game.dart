@@ -1,4 +1,20 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Game(),
+      ),
+    );
+  }
+}
 
 class Game extends StatefulWidget {
   @override
@@ -8,27 +24,25 @@ class Game extends StatefulWidget {
 class _GameState extends State<Game> {
   double positionX = 0;
   double positionY = 0;
-  final double stepSize = 10.0; // Tamanho do passo
-  double imageSize = 100.0; // Tamanho da imagem, ajuste conforme necessário
+  final double stepSize = 10.0;
+  double imageSize = 100.0;
 
   List<String> actor = [
     'assets/actor_right.png',
     'assets/actor_left.png',
   ];
-  int currentActorIndex = 0; // Inicializa com a primeira imagem
+  int currentActorIndex = 0;
 
-  List<String> Powers =[
+  List<String> powers = [
     'assets/fire.png',
     'assets/ice.png',
   ];
-
-  int currentPowersIndex = 0; // Inicializa com a primeira imagem
 
   void moveLeft() {
     setState(() {
       positionX = (positionX - stepSize)
           .clamp(0.0, MediaQuery.of(context).size.width - imageSize);
-      currentActorIndex = 1; // Altera para a imagem da esquerda
+      currentActorIndex = 1;
     });
   }
 
@@ -50,20 +64,27 @@ class _GameState extends State<Game> {
     setState(() {
       positionX = (positionX + stepSize)
           .clamp(0.0, MediaQuery.of(context).size.width - imageSize);
-      currentActorIndex = 0; // Altera para a imagem da direita
+      currentActorIndex = 0;
     });
   }
 
-  void fire() {
-    setState(() {
-      currentPowersIndex = 0;
-    });
-  }
+  Widget buildRandomPowerWidget() {
+    final random = Random();
+    final randomPower = powers[random.nextInt(powers.length)];
+    final randomPositionX =
+        random.nextDouble() * (MediaQuery.of(context).size.width - imageSize);
+    final randomPositionY =
+        random.nextDouble() * (MediaQuery.of(context).size.height - imageSize);
 
-  void ice() {
-    setState(() {
-      currentPowersIndex = 1;
-    });
+    return Positioned(
+      left: randomPositionX,
+      top: randomPositionY,
+      child: Container(
+        width: imageSize,
+        height: imageSize,
+        child: Image.asset(randomPower),
+      ),
+    );
   }
 
   @override
@@ -76,29 +97,21 @@ class _GameState extends State<Game> {
             Expanded(
               flex: 6,
               child: Stack(
-                  children: [
-                    Positioned(
-                      left: positionX,
-                      top: positionY,
-                      child: Row(
-                        children: [
-                          Container(
-                            width: imageSize,
-                            height: imageSize,
-                            child: Image.asset(actor[currentActorIndex]),
-                          ),
-                          SizedBox(width: 20), // Espaçamento entre o ator e o poder
-                          Container(
-                            width: imageSize,
-                            height: imageSize,
-                            child: Image.asset(Powers[currentPowersIndex]), // Exibe o ícone do poder
-                          ),
-                        ],
-                      ),
+                children: [
+                  Positioned(
+                    left: positionX,
+                    top: positionY,
+                    child: Container(
+                      width: imageSize,
+                      height: imageSize,
+                      child: Image.asset(actor[currentActorIndex]),
                     ),
-                  ],
-                ),
+                  ),
+                  // Display random power inside the Positioned widget
+                  buildRandomPowerWidget(),
+                ],
               ),
+            ),
             Expanded(
               child: Container(
                 color: Colors.lightBlue[200],
@@ -123,7 +136,7 @@ class _GameState extends State<Game> {
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
-                        SizedBox(height: 30), // Espaçamento entre os botões
+                        SizedBox(height: 30),
                         ElevatedButton(
                           onPressed: moveDown,
                           child: Text(
@@ -139,15 +152,6 @@ class _GameState extends State<Game> {
                         "➞",
                         style: TextStyle(color: Colors.white),
                       ),
-                    ),
-                    SizedBox(width: 100),
-                    ElevatedButton(
-                      onPressed: fire,
-                      child: Icon(Icons.local_fire_department),
-                    ),
-                    ElevatedButton(
-                      onPressed: ice,
-                      child: Icon(Icons.ac_unit),
                     ),
                   ],
                 ),
