@@ -81,10 +81,14 @@ class _GameState extends State<Game> {
                     Positioned(
                       left: positionX,
                       top: positionY,
-                      child: Container(
-                        width: imageSize,
-                        height: imageSize,
-                        child: Image.asset(actor[currentActorIndex]), // Use o índice atual para exibir a imagem correta
+                      child: Column(
+                        children: [
+                          Container(
+                            width: imageSize,
+                            height: imageSize,
+                            child: Image.asset(actor[currentActorIndex]), // Use o índice atual para exibir a imagem correta
+                          ),
+                        ],
                       ),
                     ),
                   ],
