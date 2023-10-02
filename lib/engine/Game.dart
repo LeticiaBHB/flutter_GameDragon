@@ -62,7 +62,7 @@ class _GameState extends State<Game> {
 
   void ice() {
     setState(() {
-      currentPowersIndex = 3;
+      currentPowersIndex = 1;
     });
   }
 
@@ -75,18 +75,23 @@ class _GameState extends State<Game> {
           children: [
             Expanded(
               flex: 6,
-              child: Container(
-                child: Stack(
+              child: Stack(
                   children: [
                     Positioned(
                       left: positionX,
                       top: positionY,
-                      child: Column(
+                      child: Row(
                         children: [
                           Container(
                             width: imageSize,
                             height: imageSize,
-                            child: Image.asset(actor[currentActorIndex]), // Use o índice atual para exibir a imagem correta
+                            child: Image.asset(actor[currentActorIndex]),
+                          ),
+                          SizedBox(width: 20), // Espaçamento entre o ator e o poder
+                          Container(
+                            width: imageSize,
+                            height: imageSize,
+                            child: Image.asset(Powers[currentPowersIndex]), // Exibe o ícone do poder
                           ),
                         ],
                       ),
@@ -94,7 +99,6 @@ class _GameState extends State<Game> {
                   ],
                 ),
               ),
-            ),
             Expanded(
               child: Container(
                 color: Colors.lightBlue[200],
