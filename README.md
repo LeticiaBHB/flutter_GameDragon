@@ -1,8 +1,6 @@
 prototype of a simple flutter game, where the dragon is the main actor and can move in all directions, and fire, water and ice appear randomly on the scene.
-
-![image](https://github.com/LeticiaBHB/flutter_GameDragon/assets/124852398/dcc1debc-ffd7-44d9-8619-bbf9e9d88677)
-
-![image](https://github.com/LeticiaBHB/flutter_GameDragon/assets/124852398/ec15bb34-9f6d-4be1-b9af-22d99606b0fd)
+|______|_______|
+|![image](https://github.com/LeticiaBHB/flutter_GameDragon/assets/124852398/dcc1debc-ffd7-44d9-8619-bbf9e9d88677) | ![image](https://github.com/LeticiaBHB/flutter_GameDragon/assets/124852398/ec15bb34-9f6d-4be1-b9af-22d99606b0fd)
 
 
 
