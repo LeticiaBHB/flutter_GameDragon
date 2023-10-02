@@ -182,7 +182,7 @@ class _GameState extends State<Game> {
                       Expanded(
                         child: Row(
                           children: [
-                            Icon(Icons.snapchat_sharp),
+                            Icon(Icons.health_and_safety),
                             Text("Lives: $lives"), // Display lives count
                           ],
                         ),
