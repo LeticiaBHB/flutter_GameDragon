@@ -11,19 +11,24 @@ class _GameState extends State<Game> {
   final double stepSize = 10.0; // Tamanho do passo
   double imageSize = 100.0; // Tamanho da imagem, ajuste conforme necessário
 
-  List<String> images = [
+  List<String> actor = [
     'assets/actor_right.png',
     'assets/actor_left.png',
+  ];
+  int currentActorIndex = 0; // Inicializa com a primeira imagem
+
+  List<String> Powers =[
     'assets/fire.png',
     'assets/ice.png',
   ];
-  int currentImageIndex = 0; // Inicializa com a primeira imagem
+
+  int currentPowersIndex = 0; // Inicializa com a primeira imagem
 
   void moveLeft() {
     setState(() {
       positionX = (positionX - stepSize)
           .clamp(0.0, MediaQuery.of(context).size.width - imageSize);
-      currentImageIndex = 1; // Altera para a imagem da esquerda
+      currentActorIndex = 1; // Altera para a imagem da esquerda
     });
   }
 
@@ -45,41 +50,19 @@ class _GameState extends State<Game> {
     setState(() {
       positionX = (positionX + stepSize)
           .clamp(0.0, MediaQuery.of(context).size.width - imageSize);
-      currentImageIndex = 0; // Altera para a imagem da direita
+      currentActorIndex = 0; // Altera para a imagem da direita
     });
   }
-
-  bool showFireImage = false;
 
   void fire() {
     setState(() {
-      showFireImage = true; // Mostra a imagem de fogo
-      currentImageIndex = 2;
-    });
-
-    // Aguarde 0.5 segundos e, em seguida, oculte a imagem de fogo
-    Future.delayed(Duration(milliseconds: 500), () {
-      setState(() {
-        showFireImage = false;
-        currentImageIndex = 1; // Volta para a imagem da esquerda após 0.5 segundos
-      });
+      currentPowersIndex = 0;
     });
   }
 
-  bool showIceImage = false;
-
   void ice() {
     setState(() {
-      showIceImage = true;
-      currentImageIndex = 3;
-    });
-
-    // Aguarde 0.5 segundos e, em seguida, oculte a imagem de gelo
-    Future.delayed(Duration(milliseconds: 500), () {
-      setState(() {
-        showIceImage = false;
-        currentImageIndex = 0; // Volta para a imagem da direita após 0.5 segundos
-      });
+      currentPowersIndex = 3;
     });
   }
 
@@ -101,21 +84,9 @@ class _GameState extends State<Game> {
                       child: Container(
                         width: imageSize,
                         height: imageSize,
-                        child: Image.asset(images[currentImageIndex]), // Use o índice atual para exibir a imagem correta
+                        child: Image.asset(actor[currentActorIndex]), // Use o índice atual para exibir a imagem correta
                       ),
                     ),
-                    if (showFireImage || showIceImage)
-                      Positioned(
-                        left: currentImageIndex == 0 ? positionX + imageSize + 10 : positionX - imageSize - 10,
-                        top: positionY,
-                        child: Container(
-                          width: imageSize,
-                          height: imageSize,
-                          child: Image.asset(
-                            showFireImage ? images[2] : images[3], // Mostra a imagem de fogo ou gelo com base na ação
-                          ),
-                        ),
-                      ),
                   ],
                 ),
               ),
