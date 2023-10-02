@@ -35,7 +35,7 @@ class Home extends StatelessWidget {
               flex: 6,
               child: Container(
                 color: Colors.lightBlue[100],
-                child: Image.asset('assets/actor.png'),
+                child: Image.asset('assets/fundo.jpeg'),
                 margin: EdgeInsets.only(left: 0,top: 0,right: 0,bottom: 50),
               ),
             ),
